@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertEquals;
 
 public class SichuanFanTest {
     @Test
-    public void yiTiaoLongTest() {
+    public void gangTest() {
         List<Integer> shoupai = Arrays.asList(
                2,2,2,3,3,3,5,6,7,7,7
         );
