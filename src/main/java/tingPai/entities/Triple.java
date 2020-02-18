@@ -31,4 +31,29 @@ public class Triple {
     public boolean sameTriple(Triple toCompare) {
         return ListTool.checkDiffrent(integers, toCompare.getIntegers());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if ((obj == null) || (obj.getClass() != this.getClass()))
+            return false;
+
+        Triple triple = (Triple) obj;
+        if (this.sameTriple(triple)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+        for (Integer integer : this.getIntegers()) {
+            result += integer;
+        }
+        return result;
+    }
 }

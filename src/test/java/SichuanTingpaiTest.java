@@ -8,6 +8,10 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
+/**
+ * 四川麻将听牌算法测试
+ * @author Henry Zhou
+ */
 public class SichuanTingpaiTest {
     @Test
     public void tingpaiTest01() {

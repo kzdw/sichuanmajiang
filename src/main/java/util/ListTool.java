@@ -5,7 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 public class ListTool {
-
+    /**
+     * 两个list是否一样（忽略顺序）
+     *
+     * @param list
+     * @param list1
+     * @author Henry Zhou
+     * @return
+     */
     public static boolean checkDiffrent(List<Integer> list, List<Integer> list1) {
         long st = System.currentTimeMillis();
         Map<Integer, Integer> map = new HashMap<>(list.size() + list1.size());
@@ -24,11 +31,5 @@ public class ListTool {
         }
         return true;
     }
-
-//    public static void main(String[] args) {
-//        ListTool listTool = new ListTool();
-//      boolean is =  listTool.checkDiffrent(Arrays.asList(1,2,3),Arrays.asList(1,3,4));
-//      System.out.println(is);
-//    }
 
 }

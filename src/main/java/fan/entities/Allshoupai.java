@@ -1,13 +1,21 @@
 package fan.entities;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * 所有手牌类（包含已经胡的牌）
+ *
+ * @author Henry Zhou
+ */
 public class Allshoupai {
-    private List<Integer> shoupai = new ArrayList<>();
-    private List<Peng> pengs = new ArrayList<>();
-    private List<Gang> gangs = new ArrayList<>();
-    private Integer hued = -1;
+    private List<Integer> shoupai = new ArrayList<>();//手牌
+    private List<Peng> pengs = new ArrayList<>();//已经碰的牌
+    private List<Gang> gangs = new ArrayList<>();//已经杠的牌
+    private Integer hued = -1;//已经胡的牌
 
     public Allshoupai(List<Integer> shoupai, List<Peng> pengs, List<Gang> gangs, Integer hued) {
         this.shoupai = shoupai;
@@ -51,6 +59,11 @@ public class Allshoupai {
         this.hued = hued;
     }
 
+    /**
+     * 验证手牌中是否已经包含胡的牌，如果没有那么抛出异常
+     *
+     * @throws IllegalStateException
+     */
     public void checkHuedInShoupai() {
         if (!shoupai.contains(hued)) {
             throw new IllegalStateException("手牌中未包含已经胡的牌");
@@ -75,26 +88,19 @@ public class Allshoupai {
 
     /**
      * 找到将，并移除，返回无将手牌
+     *
      * @return
      */
-    public List<Integer> findShoupaiExpectJiang(){
-       List<Integer> shouPaiCopy =  shoupai.stream().collect(Collectors.toList());
-        Map<Integer, IntSummaryStatistics> groups  = shouPaiCopy.stream()
-                .collect(Collectors.groupingBy(singlePai->singlePai, Collectors.summarizingInt(singlePai-> (int) singlePai)));
-        groups.forEach((k,v)->{if(v.getCount()==2){
-            shouPaiCopy.remove(k);
-        }});
+    public List<Integer> findShoupaiExceptJiang() {
+        List<Integer> shouPaiCopy = shoupai.stream().collect(Collectors.toList());
+        Map<Integer, IntSummaryStatistics> groups = shouPaiCopy.stream()
+                .collect(Collectors.groupingBy(singlePai -> singlePai, Collectors.summarizingInt(singlePai -> (int) singlePai)));
+        groups.forEach((k, v) -> {
+            if (v.getCount() == 2) {
+                shouPaiCopy.remove(k);
+            }
+        });
         return shouPaiCopy;
-    }
-
-    public static void main(String[] args) {
-        Allshoupai allshoupai = new Allshoupai();
-        List<Integer> shoupai = Arrays.asList(
-                4, 5, 5, 5, 6, 7, 8, 23, 24, 25, 26, 27, 28
-        );
-        allshoupai.setShoupai(shoupai);
-
-        allshoupai.findShoupaiExpectJiang();
     }
 
 }

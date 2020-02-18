@@ -3,6 +3,11 @@ package fan.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 碰对象
+ *
+ * @author Henry Zhou
+ */
 public class Peng {
     List<Integer> singPengs = new ArrayList<>();
 

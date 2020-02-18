@@ -9,6 +9,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 听牌工具类
+ * @author Henry Zhou
+ */
 public class TingpaiTool {
     /**
      * 三个数是否连续

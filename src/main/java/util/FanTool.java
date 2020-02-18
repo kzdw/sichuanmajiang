@@ -9,11 +9,21 @@ import tingPai.Tingpai;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * 算番工具类
+ * @author Henry Zhou
+ */
 public class FanTool {
 
 
+    /**
+     * 是否是大对子
+     *
+     * @param allshoupai 手牌
+     * @return
+     */
     public static boolean isDaduizi(Allshoupai allshoupai) {
-        allshoupai.findShoupaiExpectJiang();
+        allshoupai.findShoupaiExceptJiang();
 
         List<Integer> shouPaiCopy = allshoupai.getShoupai().stream().collect(Collectors.toList());
         Map<Integer, IntSummaryStatistics> groups = shouPaiCopy.stream()
@@ -30,6 +40,28 @@ public class FanTool {
         }
         if (countJiang != 1) {
             return false;
+        }
+        return true;
+    }
+
+    /**
+     * 是否是小七对
+     *
+     * @param allshoupai
+     * @return
+     */
+    public static boolean isXiaoQiDui(Allshoupai allshoupai) {
+        if(allshoupai.getShoupai().size()!=14 || allshoupai.getGangs().size()>0 || allshoupai.getPengs().size()>0){
+            return false;
+        }
+        List<Integer> shouPaiCopy = allshoupai.getShoupai().stream().collect(Collectors.toList());
+        Map<Integer, IntSummaryStatistics> groups = shouPaiCopy.stream()
+                .collect(Collectors.groupingBy(singlePai -> singlePai, Collectors.summarizingInt(singlePai -> (int) singlePai)));
+        for (Integer key : groups.keySet()) {
+            IntSummaryStatistics value = groups.get(key);
+            if (value.getCount() != 2) {
+                return false;
+            }
         }
         return true;
     }
@@ -95,7 +127,7 @@ public class FanTool {
                 specifiedType = Arrays.asList(4, 5, 6);
                 break;
             case TIAO:
-                specifiedType = Arrays.asList(14, 15, 66);
+                specifiedType = Arrays.asList(14, 15, 16);
                 break;
             case WAN:
                 specifiedType = Arrays.asList(24, 25, 26);

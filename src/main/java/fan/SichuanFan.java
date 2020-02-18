@@ -1,7 +1,9 @@
 package fan;
 
 import fan.entities.Allshoupai;
+import fan.entities.FanEntity;
 import fan.entities.Gang;
+import fan.entities.SingleFan;
 import tingPai.PaiType;
 import tingPai.SichuanTingpai;
 import tingPai.Tingpai;
@@ -14,12 +16,67 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ * 四川麻将番算法类
+ *
+ * @author Henry Zhou
+ */
 public class SichuanFan implements Fan {
     @Override
-    public Integer findFan(Allshoupai allshoupai) {
+    public FanEntity findFan(Allshoupai allshoupai, List<ConfigFan> configFans) {
         allshoupai.checkHuedInShoupai();
-        return gang(allshoupai);
+        int totalFans = 0;
+        List<SingleFan> fans = new ArrayList<>();
+        for (ConfigFan configFan : configFans) {
+            Integer currentFan = 0;
+            if (configFan.isValid()) {
+                switch (configFan.getFanType()) {
+                    case GANG:
+                        currentFan = this.gang(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case DA_DUI_ZI:
+                        currentFan = this.daDuiZi(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case QING_YI_SE:
+                        currentFan = this.qingYiSe(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case JIA_XIN_WU:
+                        currentFan = this.jiaXinWu(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case KA_ER_TIAO:
+                        currentFan = this.kaErTiao(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case JIN_GOU_DIAO:
+                        currentFan = this.jinGouDiao(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case MEN_QING:
+                        currentFan = this.menQing(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case YI_JIU_JIANG_DUI:
+                        currentFan = this.yiJiuJiangDui(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case BAN_BAN_GAO:
+                        currentFan = this.banBanGao(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case YI_TIAO_LONG:
+                        currentFan = this.yiTiaoLong(allshoupai) * configFan.getSingleFan();
+                        break;
+                    case XIAO_QI_DUI:
+                        currentFan = this.xiaoQiDui(allshoupai) * configFan.getSingleFan();
+                        break;
+                }
+                SingleFan singleFan = new SingleFan(configFan.getFanType(), currentFan);
+                if (currentFan != 0) {
+                    fans.add(singleFan);
+                    totalFans += currentFan;
+                }
+            }
+        }
+        FanEntity fanEntity = new FanEntity(
+                fans,
+                totalFans
+        );
+        return fanEntity;
     }
 
 
@@ -47,6 +104,20 @@ public class SichuanFan implements Fan {
      */
     private Integer menQing(Allshoupai allshoupai) {
         if (allshoupai.getShoupai().size() == 14) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 小七对
+     *
+     * @param allshoupai 手牌
+     * @return 几个小七对
+     */
+    private Integer xiaoQiDui(Allshoupai allshoupai) {
+        if (FanTool.isXiaoQiDui(allshoupai)) {
             return 1;
         } else {
             return 0;
@@ -182,7 +253,7 @@ public class SichuanFan implements Fan {
      * @param allshoupai
      * @return 几个卡二条
      */
-    private Integer kaiErTiao(Allshoupai allshoupai) {
+    private Integer kaErTiao(Allshoupai allshoupai) {
         if (allshoupai.getHued() != 12) {
             return 0;
         }
@@ -194,31 +265,17 @@ public class SichuanFan implements Fan {
 
     /**
      * 是否有单个板板高
+     *
      * @param org 手牌中的坊子
      * @return
      */
     private boolean singleBanbanGao(List<Triple> org) {
-        if (org.size() < 2) {
+        List<Triple> distincted = org.stream().distinct().collect(Collectors.toList());
+        if (org.size() != distincted.size()) {
+            return true;
+        } else {
             return false;
         }
-        List<Triple> base = new ArrayList<>();
-        base.addAll(org);
-        for (int i = 0; i < org.size(); i++) {
-            if (base != org.get(i) && anyMatch(base, org.get(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 单个坊子是否能匹配上集合中的坊子
-     * @param triples 坊子集合
-     * @param triple 单个坊子
-     * @return
-     */
-    private boolean anyMatch(List<Triple> triples, Triple triple) {
-        return triples.stream().anyMatch(triple1 -> triple1.sameTriple(triple));
     }
 
 }
