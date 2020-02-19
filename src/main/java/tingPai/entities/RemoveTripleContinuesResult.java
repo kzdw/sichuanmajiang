@@ -3,6 +3,11 @@ package tingPai.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 手牌移除连续坊子结果类
+ * @author Henry Zhou
+ *
+ */
 public class RemoveTripleContinuesResult {
     private boolean alltripleContinues;
     private List<Triple> triples = new ArrayList<>();

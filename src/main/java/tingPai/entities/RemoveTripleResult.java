@@ -3,6 +3,10 @@ package tingPai.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 移除坊子结果类
+ * @author Henry Zhou
+ */
 public class RemoveTripleResult {
     private List<Integer> result = new ArrayList<>();//移除后的结果
     private List<Triple> triples = new ArrayList<>();//被移除的triple集合

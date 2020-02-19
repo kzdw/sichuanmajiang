@@ -10,7 +10,7 @@ import fan.enumType.FanType;
 public class ConfigFan {
     private FanType fanType;//番类型
     private boolean valid;//当前类型是否有效，比如一条龙，板板高，大多数地区不算番，即为false
-    private int singleFan;//单个算成多少番，例如一般情况下 大对子 算一番，但是有些地区算两番
+    private int singleFan;//单个算成多少番，例如一般情况下 大对子 算一番，但是有些地区算两番，这个需要配置
 
     public ConfigFan() {
     }

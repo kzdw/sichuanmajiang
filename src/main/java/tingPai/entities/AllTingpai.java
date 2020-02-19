@@ -3,10 +3,14 @@ package tingPai.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 听牌类
+ * @author Henry Zhou
+ */
 public class AllTingpai {
+    private List<Integer> tingPais = new ArrayList<>();//已经听牌集合
+    private List<TingDetail> tingDetails = new ArrayList<>();//听牌细节
     private final String LINE_BREAK = "\r\n";
-    private List<Integer> tingPais = new ArrayList<>();
-    private List<TingDetail> tingDetails = new ArrayList<>();
 
     public AllTingpai(List<Integer> tingPais, List<TingDetail> tingDetails) {
         this.tingPais = tingPais;

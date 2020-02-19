@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 听牌抽象类
  * 筒：1-9
  * 条：11-19
  * 万：21-29

@@ -3,12 +3,16 @@ package tingPai.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 听牌细节（单张）
+ * @author Henry Zhou
+ */
 public class TingDetail {
-    private List<Triple> triples = new ArrayList<>();
-    private DoublePia doublePia = new DoublePia();
-    private Integer hupai = -1;
-    private boolean hupaiYesNot = false;
-    private List<Integer> qiDui = new ArrayList<>();
+    private List<Triple> triples = new ArrayList<>();//坊子
+    private DoublePia doublePia = new DoublePia();//将
+    private Integer hupai = -1;//胡哪一张牌
+    private boolean hupaiYesNot = false;//是否已经胡牌
+    private List<Integer> qiDui = new ArrayList<>();//小七对
 
     public TingDetail() {
     }

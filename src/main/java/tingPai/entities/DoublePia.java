@@ -3,6 +3,10 @@ package tingPai.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 将（即麻将中胡牌必须要有一对中的一对）
+ * @author Henry Zhou
+ */
 public class DoublePia {
   private   List<Integer> doubles = new ArrayList<>();
 

@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * 四川麻将听牌类
+ * @author Henry Zhou
+ */
 public class SichuanTingpai implements Tingpai {
     @Override
     public List<TingDetail> isTingCurrentPai(List<Integer> shoupai, Integer currentPai) {

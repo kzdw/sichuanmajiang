@@ -5,6 +5,10 @@ import util.ListTool;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 坊子（例如3,4,5条，6，6,6条）
+ * @author Henry Zhou
+ */
 public class Triple {
     private List<Integer> integers = new ArrayList<>();
 
